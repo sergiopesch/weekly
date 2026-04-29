@@ -112,3 +112,11 @@ The app should avoid technical terms in the main UI. Use:
 - "Taste profile" instead of "model state"
 
 The technical model can be documented for maintainers, but family users should only see plain, useful language.
+
+## Maintenance
+
+- `npm test` is the canonical local and CI validation command.
+- `npm run check` performs syntax and static asset checks without opening a browser.
+- `npm run smoke` runs the browser-based end-to-end smoke test.
+- `npm run banner` captures `docs/assets/casa-weekly-banner.png` from the real app UI.
+- GitHub Actions runs the validation suite on pushes to `master` and on pull requests.

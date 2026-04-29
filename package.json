@@ -4,6 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --check app.js && node scripts/e2e-smoke.mjs"
+    "banner": "node scripts/capture-banner.mjs",
+    "check": "node --check app.js && node --check scripts/e2e-smoke.mjs && node --check scripts/capture-banner.mjs && node --check scripts/check-static.mjs && node scripts/check-static.mjs",
+    "smoke": "node scripts/e2e-smoke.mjs",
+    "test": "npm run check && npm run smoke"
   }
 }

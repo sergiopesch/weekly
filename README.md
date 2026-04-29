@@ -20,7 +20,21 @@ No build step or package install is required.
 npm test
 ```
 
-The test suite runs a JavaScript syntax check and a dependency-free Chromium end-to-end smoke test.
+The test suite runs JavaScript syntax checks and a dependency-free Chromium end-to-end smoke test.
+
+Useful maintenance commands:
+
+```bash
+npm run check   # syntax and static asset checks
+npm run smoke   # browser smoke test only
+npm run banner  # refresh docs/assets/casa-weekly-banner.png from the real UI
+```
+
+`npm run smoke` and `npm run banner` use `chromium` by default. Set `CHROMIUM_BIN` if your browser binary has a different name.
+
+## DevOps
+
+GitHub Actions runs `npm test` on pushes to the default `master` branch and on pull requests. The CI workflow uses `google-chrome-stable` on GitHub-hosted runners through the `CHROMIUM_BIN` environment variable.
 
 ## What It Includes
 

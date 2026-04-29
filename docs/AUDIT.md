@@ -8,7 +8,10 @@ This audit covers the current static Casa Weekly app:
 - `styles.css`
 - `app.js`
 - `family-guide/`
+- `scripts/check-static.mjs`
 - `scripts/e2e-smoke.mjs`
+- `scripts/capture-banner.mjs`
+- `.github/workflows/ci.yml`
 - `README.md`
 
 ## Current Strengths
@@ -20,6 +23,9 @@ This audit covers the current static Casa Weekly app:
 - Settings shape planning behaviour through planning promises.
 - The app exposes a friendly taste profile so the family can see what Casa is learning.
 - The E2E smoke test exercises planner rendering, settings, grocery updates, feedback, week switching, and local persistence.
+- Static checks validate the web manifest, favicon wiring, app icon, and README banner asset.
+- GitHub Actions now runs the same test suite on pushes to the default branch and on pull requests.
+- The README banner can be refreshed from the real product UI with `npm run banner`.
 
 ## Framework Fit
 
@@ -43,6 +49,7 @@ Casa Weekly now has a clear agentic planning loop:
 - `app.js` is intentionally dependency-free but large. If the app grows, split data, state, rendering, and planning into modules.
 - The E2E test uses Chromium remote debugging directly to avoid dependencies. It is useful but lower-level than Playwright.
 - Downloaded guide files are exports; the app does not re-import them yet.
+- CI depends on the Chrome binary available on GitHub-hosted runners. Locally, set `CHROMIUM_BIN` if `chromium` is not the installed browser command.
 
 ## Recommended Next Steps
 
