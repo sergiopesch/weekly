@@ -669,13 +669,18 @@ function renderProfile() {
 
 function renderPlanner() {
   const start = dateFromWeekKey(state.weekStart);
+  const today = new Date();
   elements.weekGrid.innerHTML = DAYS.map((day, index) => {
     const date = addDays(start, index);
+    const isToday = isSameDate(date, today);
     const slots = MEAL_TYPES.map((type) => slotTemplate(day, type)).join("");
     return `
-      <article class="day-column">
+      <article class="day-column ${isToday ? "day-today" : ""}">
         <div class="day-head">
-          <strong>${day}</strong>
+          <span>
+            <strong>${day}</strong>
+            ${isToday ? "<em>Today</em>" : ""}
+          </span>
           <span>${date.toLocaleDateString(undefined, { month: "short", day: "numeric" })}</span>
         </div>
         ${slots}
@@ -1289,6 +1294,14 @@ function addDays(date, days) {
 
 function formatDate(date) {
   return date.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+}
+
+function isSameDate(first, second) {
+  return (
+    first.getFullYear() === second.getFullYear() &&
+    first.getMonth() === second.getMonth() &&
+    first.getDate() === second.getDate()
+  );
 }
 
 function titleCase(value) {

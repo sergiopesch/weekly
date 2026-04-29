@@ -57,8 +57,8 @@
       <main>
         <section class="intro-band" aria-labelledby="pageTitle">
           <div class="intro-copy">
-            <p class="eyebrow">Weekly food rhythm</p>
-            <h1 id="pageTitle">Nutritious days, calmer shops, happier leftovers.</h1>
+            <p class="eyebrow">Casa Weekly</p>
+            <h1 id="pageTitle">A calmer week of food.</h1>
           </div>
           <div class="family-signal" aria-label="Family dietary snapshot">
             <div>
@@ -77,6 +77,20 @@
         </section>
 
         <section class="dashboard-grid">
+          <section class="planner-column" id="planner" aria-labelledby="plannerTitle">
+            <div class="section-heading planner-heading">
+              <div>
+                <p class="eyebrow">Meal calendar</p>
+                <h2 id="plannerTitle">This week</h2>
+              </div>
+              <div class="planner-actions">
+                <button class="text-button secondary" type="button" data-action="fill-week">Fill open slots</button>
+                <button class="text-button" type="button" data-action="optimize-week">Optimize groceries</button>
+              </div>
+            </div>
+            <div class="week-grid" id="weekGrid"></div>
+          </section>
+
           <aside class="control-column" aria-label="Planning controls">
             <section class="panel family-panel" aria-labelledby="profileTitle">
               <div class="section-heading">
@@ -148,20 +162,6 @@
               <ul class="memory-list" id="memoryList"></ul>
             </section>
           </aside>
-
-          <section class="planner-column" id="planner" aria-labelledby="plannerTitle">
-            <div class="section-heading planner-heading">
-              <div>
-                <p class="eyebrow">Meal calendar</p>
-                <h2 id="plannerTitle">This week</h2>
-              </div>
-              <div class="planner-actions">
-                <button class="text-button secondary" type="button" data-action="fill-week">Fill open slots</button>
-                <button class="text-button" type="button" data-action="optimize-week">Optimize groceries</button>
-              </div>
-            </div>
-            <div class="week-grid" id="weekGrid"></div>
-          </section>
         </section>
 
         <details class="helper-band" aria-labelledby="helperTitle">
