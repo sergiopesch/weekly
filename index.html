@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Casa Weekly</title>
+    <meta
+      name="description"
+      content="A family weekly meal planner for breakfast, lunch, dinner, groceries, and dietary preferences."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="#planner" aria-label="Casa Weekly home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 48 48" role="img">
+              <path d="M8 22.5 24 9l16 13.5v16A3.5 3.5 0 0 1 36.5 42h-25A3.5 3.5 0 0 1 8 38.5v-16Z" />
+              <path d="M17 42V28.5A3.5 3.5 0 0 1 20.5 25h7A3.5 3.5 0 0 1 31 28.5V42" />
+              <path d="M18 18.5c3.8 2.2 8.2 2.2 12 0" />
+            </svg>
+          </span>
+          <span>
+            <strong>Casa Weekly</strong>
+            <small>Sergio, Mum & Little One</small>
+          </span>
+        </a>
+
+        <nav class="topnav" aria-label="Primary navigation">
+          <a href="#planner">Planner</a>
+          <a href="#groceries">Groceries</a>
+          <a href="#meals">Meals</a>
+          <a href="#settings">Settings</a>
+        </nav>
+
+        <div class="week-switcher" aria-label="Week controls">
+          <button class="icon-button" type="button" data-action="previous-week" aria-label="Previous week">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+          </button>
+          <span id="weekLabel"></span>
+          <button class="icon-button" type="button" data-action="next-week" aria-label="Next week">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="intro-band" aria-labelledby="pageTitle">
+          <div class="intro-copy">
+            <p class="eyebrow">Weekly food rhythm</p>
+            <h1 id="pageTitle">Nutritious days, calmer shops, happier leftovers.</h1>
+          </div>
+          <div class="family-signal" aria-label="Family dietary snapshot">
+            <div>
+              <span class="signal-label">Family</span>
+              <strong>3</strong>
+            </div>
+            <div>
+              <span class="signal-label">Meals</span>
+              <strong>21</strong>
+            </div>
+            <div>
+              <span class="signal-label">Focus</span>
+              <strong id="focusLabel">Toddler friendly</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="helper-band" aria-labelledby="helperTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Weekly helpers</p>
+              <h2 id="helperTitle">This week’s guidance</h2>
+            </div>
+            <span class="score-pill" id="memoryScore">Learning ready</span>
+          </div>
+          <div class="helper-grid" id="helperCards"></div>
+        </section>
+
+        <section class="dashboard-grid">
+          <aside class="control-column" aria-label="Planning controls">
+            <section class="panel family-panel" aria-labelledby="profileTitle">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Family profile</p>
+                  <h2 id="profileTitle">Dietary needs</h2>
+                </div>
+                <button class="icon-button" type="button" data-action="reset" aria-label="Reset planner">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7" /><path d="M3 4v6h6" /></svg>
+                </button>
+              </div>
+              <div class="toggle-list" id="profileToggles"></div>
+              <label class="field-label" for="avoidInput">Avoid</label>
+              <div class="inline-form">
+                <input id="avoidInput" type="text" placeholder="e.g. peanuts, shellfish" autocomplete="off" />
+                <button class="text-button" type="button" data-action="add-avoid">Add</button>
+              </div>
+              <div class="chip-row" id="avoidList"></div>
+            </section>
+
+            <section class="panel" id="groceries" aria-labelledby="groceryTitle">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Grocery basket</p>
+                  <h2 id="groceryTitle">Use first</h2>
+                </div>
+                <span class="score-pill" id="reuseScore"></span>
+              </div>
+              <div class="inline-form">
+                <input id="pantryInput" type="text" placeholder="Add ingredient" autocomplete="off" />
+                <button class="text-button" type="button" data-action="add-pantry">Add</button>
+              </div>
+              <div class="chip-row pantry-chips" id="pantryList"></div>
+              <div class="grocery-insights">
+                <div>
+                  <span class="signal-label">Shared staples</span>
+                  <strong id="sharedCount">0</strong>
+                </div>
+                <div>
+                  <span class="signal-label">To buy</span>
+                  <strong id="shoppingCount">0</strong>
+                </div>
+              </div>
+            </section>
+
+            <section class="panel shopping-panel" aria-labelledby="shoppingTitle">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Shop once</p>
+                  <h2 id="shoppingTitle">Smart list</h2>
+                </div>
+              </div>
+              <ul class="shopping-list" id="shoppingList"></ul>
+            </section>
+
+            <section class="panel memory-panel" aria-labelledby="memoryTitle">
+              <div class="section-heading">
+                <div>
+                  <p class="eyebrow">Family learning</p>
+                  <h2 id="memoryTitle">What we learn</h2>
+                </div>
+              </div>
+              <div class="memory-stats" id="memoryStats"></div>
+              <label class="field-label" for="memoryInput">Note</label>
+              <div class="inline-form">
+                <input id="memoryInput" type="text" placeholder="e.g. pancakes were a win" autocomplete="off" />
+                <button class="text-button" type="button" data-action="add-memory-note">Add</button>
+              </div>
+              <ul class="memory-list" id="memoryList"></ul>
+            </section>
+          </aside>
+
+          <section class="planner-column" id="planner" aria-labelledby="plannerTitle">
+            <div class="section-heading planner-heading">
+              <div>
+                <p class="eyebrow">Meal board</p>
+                <h2 id="plannerTitle">This week</h2>
+              </div>
+              <div class="planner-actions">
+                <button class="text-button secondary" type="button" data-action="fill-week">Fill open slots</button>
+                <button class="text-button" type="button" data-action="optimize-week">Optimize groceries</button>
+              </div>
+            </div>
+            <div class="week-grid" id="weekGrid"></div>
+          </section>
+        </section>
+
+        <section class="library-section" id="meals" aria-labelledby="libraryTitle">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Family favourites</p>
+              <h2 id="libraryTitle">Meal ideas</h2>
+            </div>
+            <div class="filter-tabs" id="mealTabs" role="tablist" aria-label="Meal type filter"></div>
+          </div>
+          <div class="meal-library" id="mealLibrary"></div>
+        </section>
+
+        <section class="settings-section" id="settings" aria-labelledby="settingsTitle">
+          <div class="section-heading settings-heading">
+            <div>
+              <p class="eyebrow">Family settings</p>
+              <h2 id="settingsTitle">How Casa should plan</h2>
+            </div>
+            <button class="text-button" type="button" data-action="save-settings">Save settings</button>
+          </div>
+
+          <div class="settings-grid">
+            <article class="settings-card">
+              <div class="settings-card-head">
+                <span class="settings-icon" aria-hidden="true">🏡</span>
+                <div>
+                  <h3>Home style</h3>
+                  <p>The tone Casa should keep when suggesting meals.</p>
+                </div>
+              </div>
+              <label class="field-label" for="homeStyleInput">Planning mood</label>
+              <textarea id="homeStyleInput" rows="5"></textarea>
+            </article>
+
+            <article class="settings-card">
+              <div class="settings-card-head">
+                <span class="settings-icon" aria-hidden="true">👨‍👩‍👧</span>
+                <div>
+                  <h3>Household</h3>
+                  <p>The stable family context Casa should remember.</p>
+                </div>
+              </div>
+              <label class="field-label" for="householdInput">Family context</label>
+              <textarea id="householdInput" rows="5"></textarea>
+            </article>
+
+            <article class="settings-card">
+              <div class="settings-card-head">
+                <span class="settings-icon" aria-hidden="true">🧭</span>
+                <div>
+                  <h3>Planning promises</h3>
+                  <p>The everyday rules Casa should follow automatically.</p>
+                </div>
+              </div>
+              <div class="promise-list" id="promiseList"></div>
+            </article>
+
+            <article class="settings-card">
+              <div class="settings-card-head">
+                <span class="settings-icon" aria-hidden="true">✨</span>
+                <div>
+                  <h3>Taste profile</h3>
+                  <p>What Casa currently understands from your feedback.</p>
+                </div>
+              </div>
+              <div class="taste-profile" id="tasteProfile"></div>
+            </article>
+
+            <article class="settings-card">
+              <div class="settings-card-head">
+                <span class="settings-icon" aria-hidden="true">✍️</span>
+                <div>
+                  <h3>Family guide</h3>
+                  <p>A plain-text snapshot of the settings and learning.</p>
+                </div>
+              </div>
+              <div class="settings-actions">
+                <button class="text-button secondary" type="button" data-action="download-guide">Download guide</button>
+                <button class="text-button ghost" type="button" data-action="reset-learning">Clear learning</button>
+              </div>
+              <details class="guide-preview">
+                <summary>Preview guide</summary>
+                <pre id="guidePreview"></pre>
+              </details>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <dialog class="meal-dialog" id="mealDialog">
+      <form method="dialog">
+        <div class="dialog-top">
+          <div>
+            <p class="eyebrow" id="dialogMealType"></p>
+            <h2 id="dialogTitle"></h2>
+          </div>
+          <button class="icon-button" value="cancel" aria-label="Close meal chooser">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m18 6-12 12" /><path d="m6 6 12 12" /></svg>
+          </button>
+        </div>
+        <div class="dialog-options" id="dialogOptions"></div>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

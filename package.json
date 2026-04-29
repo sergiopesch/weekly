@@ -1,0 +1,9 @@
+{
+  "name": "casa-weekly",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --check app.js && node scripts/e2e-smoke.mjs"
+  }
+}
