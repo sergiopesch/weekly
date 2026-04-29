@@ -26,6 +26,7 @@ Useful maintenance commands:
 
 ```bash
 npm run check   # syntax and static asset checks
+npm run ci      # check plus browser smoke test
 npm run smoke   # browser smoke test only
 npm run banner  # refresh docs/assets/casa-weekly-banner.png from the real UI
 ```
@@ -34,7 +35,9 @@ npm run banner  # refresh docs/assets/casa-weekly-banner.png from the real UI
 
 ## DevOps
 
-GitHub Actions runs `npm test` on pushes to the default `master` branch and on pull requests. The CI workflow uses `google-chrome-stable` on GitHub-hosted runners through the `CHROMIUM_BIN` environment variable.
+GitHub Actions runs static checks and the browser smoke test on pushes to the default `master` branch, pull requests, and manual workflow dispatches. The workflow uses read-only repository permissions, cancels superseded runs on the same ref, and has a 10-minute job timeout.
+
+Dependabot checks GitHub Actions updates weekly.
 
 ## What It Includes
 

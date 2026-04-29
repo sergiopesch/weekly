@@ -5,10 +5,19 @@ on:
     branches:
       - master
   pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       CHROMIUM_BIN: google-chrome-stable
     steps:
@@ -20,5 +29,8 @@ jobs:
         with:
           node-version: 22
 
-      - name: Run static and smoke tests
-        run: npm test
+      - name: Run static checks
+        run: npm run check
+
+      - name: Run browser smoke test
+        run: npm run smoke

@@ -117,6 +117,9 @@ The technical model can be documented for maintainers, but family users should o
 
 - `npm test` is the canonical local and CI validation command.
 - `npm run check` performs syntax and static asset checks without opening a browser.
+- `npm run ci` runs the same check and smoke sequence expected by CI.
 - `npm run smoke` runs the browser-based end-to-end smoke test.
 - `npm run banner` captures `docs/assets/casa-weekly-banner.png` from the real app UI.
-- GitHub Actions runs the validation suite on pushes to `master` and on pull requests.
+- GitHub Actions runs the validation suite on pushes to `master`, pull requests, and manual dispatches.
+- The CI workflow uses read-only contents permissions, concurrency cancellation, and a 10-minute timeout.
+- Dependabot checks GitHub Actions updates weekly.

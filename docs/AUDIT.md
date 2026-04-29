@@ -9,9 +9,11 @@ This audit covers the current static Casa Weekly app:
 - `app.js`
 - `family-guide/`
 - `scripts/check-static.mjs`
+- `scripts/check-syntax.mjs`
 - `scripts/e2e-smoke.mjs`
 - `scripts/capture-banner.mjs`
 - `.github/workflows/ci.yml`
+- `.github/dependabot.yml`
 - `README.md`
 
 ## Current Strengths
@@ -25,6 +27,8 @@ This audit covers the current static Casa Weekly app:
 - The E2E smoke test exercises planner rendering, settings, grocery updates, feedback, week switching, and local persistence.
 - Static checks validate the web manifest, favicon wiring, app icon, and README banner asset.
 - GitHub Actions now runs the same test suite on pushes to the default branch and on pull requests.
+- CI has read-only permissions, concurrency cancellation, a job timeout, and manual workflow dispatch support.
+- Dependabot monitors GitHub Actions updates weekly.
 - The README banner can be refreshed from the real product UI with `npm run banner`.
 
 ## Framework Fit

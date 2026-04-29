@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "banner": "node scripts/capture-banner.mjs",
-    "check": "node --check app.js && node --check scripts/e2e-smoke.mjs && node --check scripts/capture-banner.mjs && node --check scripts/check-static.mjs && node scripts/check-static.mjs",
+    "check": "node scripts/check-syntax.mjs && node scripts/check-static.mjs",
+    "ci": "npm run check && npm run smoke",
     "smoke": "node scripts/e2e-smoke.mjs",
-    "test": "npm run check && npm run smoke"
+    "test": "npm run ci"
   }
 }
