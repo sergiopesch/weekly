@@ -1,0 +1,17 @@
+{
+  "name": "Casa Weekly",
+  "short_name": "Casa",
+  "description": "A family weekly meal calendar for nutritious meals and smarter groceries.",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fffaf5",
+  "theme_color": "#ff5a5f",
+  "icons": [
+    {
+      "src": "icons/casa-weekly-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -34,6 +34,7 @@ The test suite runs a JavaScript syntax check and a dependency-free Chromium end
 - family learning for favourites, skips, and planning notes
 - friendly weekly helpers for grocery reuse, toddler fit, weekly rhythm, and learning
 - family settings for home style, household context, planning promises, and learned preferences
+- project-specific smart-pot favicon and web app manifest
 - markdown starter files in `family-guide/` for the underlying guide structure
 - local browser persistence through `localStorage`
 
