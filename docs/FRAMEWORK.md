@@ -32,7 +32,7 @@ Casa follows a simple loop:
    - Locked slots are preserved during optimisation.
 
 5. **Explain**
-   - Weekly helpers explain why the current week is shaped the way it is.
+   - Weekly helpers explain why the current calendar is shaped the way it is.
    - Settings show what Casa currently understands.
    - The family guide can be previewed or downloaded as markdown.
 

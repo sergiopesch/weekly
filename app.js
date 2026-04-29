@@ -691,29 +691,30 @@ function slotTemplate(day, type) {
   if (!meal) {
     return `
       <article class="meal-slot" style="--slot-color: #6d665f">
-        <div class="slot-top">
-          <span class="slot-label">${type}</span>
-        </div>
-        <div class="meal-visual">
-          <div class="meal-art">＋</div>
-          <div class="meal-title"><strong>Open slot</strong><small>${day}</small></div>
-        </div>
-        <div class="slot-actions">
-          <button class="text-button secondary" type="button" data-action="choose-meal" data-day="${day}" data-type="${type}">Choose</button>
-        </div>
+        <button class="calendar-meal" type="button" data-action="choose-meal" data-day="${day}" data-type="${type}" aria-label="Choose ${type} for ${day}">
+          <span class="meal-art" aria-hidden="true">＋</span>
+          <span class="meal-title">
+            <span class="slot-label">${type}</span>
+            <strong>Open slot</strong>
+            <small>Choose a meal</small>
+          </span>
+        </button>
       </article>
     `;
   }
 
-  const ingredients = meal.ingredients.slice(0, 4).map((ingredient) => `<span>${ingredient}</span>`).join("");
   return `
     <article class="meal-slot" style="--slot-color: ${meal.color}">
-      <div class="slot-top">
-        <span class="slot-label">${type}</span>
+      <button class="calendar-meal" type="button" data-action="choose-meal" data-day="${day}" data-type="${type}" aria-label="Swap ${type} on ${day}">
+        <span class="meal-art" aria-hidden="true">${meal.emoji}</span>
+        <span class="meal-title">
+          <span class="slot-label">${type}</span>
+          <strong>${meal.name}</strong>
+          <small>${meal.time}</small>
+        </span>
+      </button>
+      <div class="slot-controls">
         <span class="slot-icons">
-          <button class="icon-button" type="button" data-action="shuffle-meal" data-day="${day}" data-type="${type}" aria-label="Shuffle ${type} on ${day}">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 3 4 4-4 4" /><path d="M4 7h16" /><path d="m8 21-4-4 4-4" /><path d="M20 17H4" /></svg>
-          </button>
           <button class="icon-button ${locked ? "locked-badge" : ""}" type="button" data-action="toggle-lock" data-day="${day}" data-type="${type}" aria-label="${locked ? "Unlock" : "Lock"} ${type} on ${day}">
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2" /><path d="M8 11V7a4 4 0 0 1 8 0v4" /></svg>
           </button>
@@ -721,20 +722,8 @@ function slotTemplate(day, type) {
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" /></svg>
           </button>
         </span>
-      </div>
-      <div>
-        <div class="meal-visual">
-          <div class="meal-art">${meal.emoji}</div>
-          <div class="meal-title">
-            <strong>${meal.name}</strong>
-            <small>${meal.time}</small>
-          </div>
-        </div>
-        <div class="ingredient-mini">${ingredients}</div>
-      </div>
-      <div class="slot-actions">
-        <button class="text-button secondary" type="button" data-action="choose-meal" data-day="${day}" data-type="${type}">Swap</button>
-        <button class="text-button ghost" type="button" data-action="skip-meal" data-day="${day}" data-type="${type}">Skip</button>
+        <button class="visually-hidden" type="button" data-action="shuffle-meal" data-day="${day}" data-type="${type}">Shuffle</button>
+        <button class="visually-hidden" type="button" data-action="skip-meal" data-day="${day}" data-type="${type}">Skip</button>
       </div>
     </article>
   `;

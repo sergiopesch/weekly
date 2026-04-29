@@ -24,7 +24,7 @@ The test suite runs a JavaScript syntax check and a dependency-free Chromium end
 
 ## What It Includes
 
-- 7-day planner with breakfast, lunch, and dinner slots
+- 7-day calendar with breakfast, lunch, and dinner slots
 - meal swaps, shuffle, lock, and fill-open-slots controls
 - family dietary toggles and an avoid list
 - grocery basket with local ingredients

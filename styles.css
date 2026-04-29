@@ -233,7 +233,7 @@ p {
 h1 {
   max-width: 720px;
   margin-bottom: 0;
-  font-size: clamp(2rem, 5vw, 4.2rem);
+  font-size: clamp(2rem, 4.6vw, 3.7rem);
   line-height: 1.02;
   letter-spacing: 0;
   overflow-wrap: break-word;
@@ -288,7 +288,7 @@ h3 {
 
 .dashboard-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+  grid-template-columns: minmax(0, 1fr);
   gap: 18px;
   align-items: start;
 }
@@ -296,13 +296,10 @@ h3 {
 .control-column {
   display: grid;
   gap: 14px;
-  grid-column: 2;
-  position: sticky;
-  top: 98px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .planner-column {
-  grid-column: 1;
   grid-row: 1;
 }
 
@@ -323,7 +320,7 @@ h3 {
 
 .helper-band {
   padding: 0;
-  margin-bottom: 14px;
+  margin: 18px 0 14px;
   overflow: hidden;
 }
 
@@ -718,26 +715,27 @@ input[type="text"]:focus {
 
 .week-grid {
   display: grid;
-  grid-template-columns: repeat(7, minmax(170px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(7, minmax(174px, 1fr));
+  gap: 8px;
   overflow-x: auto;
   padding-bottom: 4px;
 }
 
 .day-column {
-  display: grid;
-  grid-template-rows: auto repeat(3, minmax(188px, 1fr));
-  gap: 10px;
-  min-width: 170px;
+  min-width: 174px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: white;
+  overflow: hidden;
+  box-shadow: 0 8px 22px rgba(45, 31, 23, 0.05);
 }
 
 .day-head {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 52px;
-  padding: 11px 12px;
-  border-radius: var(--radius);
+  min-height: 50px;
+  padding: 10px 11px;
   background: var(--ink);
   color: white;
 }
@@ -756,11 +754,12 @@ input[type="text"]:focus {
 .meal-slot {
   position: relative;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  min-height: 188px;
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 6px;
+  min-height: 82px;
+  padding: 9px 8px 9px 10px;
+  border-top: 1px solid var(--line);
   background: white;
   overflow: hidden;
 }
@@ -768,65 +767,81 @@ input[type="text"]:focus {
 .meal-slot::before {
   content: "";
   position: absolute;
-  inset: 0 0 auto;
-  height: 5px;
+  inset: 0 auto 0 0;
+  width: 4px;
   background: var(--slot-color, var(--coral));
 }
 
-.slot-top {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-}
-
-.slot-actions {
+.calendar-meal {
   position: relative;
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 34px minmax(0, 1fr);
   align-items: center;
+  width: 100%;
+  min-width: 0;
   gap: 8px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  text-align: left;
+}
+
+.calendar-meal:hover .meal-title strong,
+.calendar-meal:focus-visible .meal-title strong {
+  color: var(--coral-dark);
+}
+
+.calendar-meal:focus-visible {
+  border-radius: 6px;
+  outline: 3px solid rgba(255, 90, 95, 0.2);
+}
+
+.slot-controls {
+  position: relative;
+  display: flex;
+  justify-content: end;
 }
 
 .slot-label {
+  display: block;
   color: var(--muted);
-  font-size: 0.72rem;
+  font-size: 0.64rem;
   font-weight: 900;
+  letter-spacing: 0;
   text-transform: uppercase;
 }
 
 .slot-icons {
-  display: inline-flex;
-  gap: 5px;
+  display: grid;
+  grid-template-columns: 26px;
+  gap: 4px;
 }
 
 .slot-icons .icon-button {
-  width: 30px;
-  height: 30px;
+  width: 26px;
+  height: 26px;
   border-color: transparent;
   background: var(--soft);
 }
 
-.meal-visual {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 14px 0 8px;
+.slot-icons .icon-button svg {
+  width: 15px;
+  height: 15px;
 }
 
 .meal-art {
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  width: 34px;
+  height: 34px;
   flex: 0 0 auto;
   border-radius: var(--radius);
   color: white;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent),
     var(--slot-color, var(--coral));
-  font-size: 1.45rem;
+  font-size: 1rem;
 }
 
 .meal-title {
@@ -834,42 +849,34 @@ input[type="text"]:focus {
 }
 
 .meal-title strong {
-  display: block;
-  line-height: 1.16;
+  display: -webkit-box;
+  max-width: 100%;
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 0.88rem;
+  line-height: 1.1;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .meal-title small {
   display: block;
-  margin-top: 4px;
+  margin-top: 3px;
   color: var(--muted);
-  font-weight: 800;
-}
-
-.ingredient-mini {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  align-content: start;
-}
-
-.ingredient-mini span {
-  border-radius: 999px;
-  background: var(--soft);
-  color: var(--muted);
-  padding: 4px 7px;
   font-size: 0.72rem;
   font-weight: 800;
 }
 
-.slot-actions {
-  align-self: end;
-  margin-top: 12px;
-}
-
-.slot-actions .text-button {
-  min-height: 36px;
-  padding: 0 10px;
-  font-size: 0.82rem;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
 }
 
 .locked-badge {
