@@ -63,6 +63,9 @@ const browser = spawn(
   ],
   { stdio: ["ignore", "ignore", "pipe"] },
 );
+const browserExit = new Promise((resolveExit) => {
+  browser.once("exit", (code, signal) => resolveExit({ code, signal }));
+});
 
 let stderr = "";
 browser.stderr.on("data", (chunk) => {
@@ -182,8 +185,8 @@ try {
   await client.close();
   console.log("E2E smoke passed: planner, groceries, learning, settings, and per-week persistence");
 } finally {
-  browser.kill("SIGTERM");
-  await rm(userDataDir, { recursive: true, force: true });
+  await stopBrowser(browser, browserExit);
+  await removeUserDataDir(userDataDir);
   if (browser.exitCode && browser.exitCode !== 0) {
     process.stderr.write(stderr);
   }
@@ -257,4 +260,28 @@ async function waitFor(predicate, timeoutMs = 6000) {
     await new Promise((resolve) => setTimeout(resolve, 80));
   }
   throw lastError || new Error("Timed out waiting for condition");
+}
+
+async function stopBrowser(browserProcess, exitPromise) {
+  if (browserProcess.exitCode !== null || browserProcess.signalCode !== null) return;
+
+  browserProcess.kill("SIGTERM");
+  const stopped = await Promise.race([exitPromise, delay(2500).then(() => null)]);
+  if (stopped) return;
+
+  browserProcess.kill("SIGKILL");
+  await Promise.race([exitPromise, delay(2500)]);
+}
+
+async function removeUserDataDir(path) {
+  await rm(path, {
+    recursive: true,
+    force: true,
+    maxRetries: 8,
+    retryDelay: 125,
+  });
+}
+
+function delay(ms) {
+  return new Promise((resolveDelay) => setTimeout(resolveDelay, ms));
 }
